@@ -1,19 +1,41 @@
-# Code Quality
+# Code Quality — Writing Clean and Maintainable ML Code
 
-## Overview
+##  Overview
 
-Maintaining high code quality ensures **readability, maintainability, and consistency** across the project.
-In this section, you’ll learn how to format, lint, and check your code manually and automatically using **Black**, **isort**, **Flake8**, and **Pre-commit**.
+In MLOps, maintaining **high code quality** is essential to ensure that your machine learning project is:
+
+* **Readable** → easy for others (and future you) to understand.
+* **Maintainable** → easy to modify or extend without breaking existing code.
+* **Consistent** → follows a unified style across the team and project.
+
+In this section, you’ll learn how to **format**, **lint**, and **validate** your code using powerful tools like:
+
+* **Black** — automatic code formatter
+* **isort** — organizes your imports cleanly
+* **Flake8** — checks code style and detects common errors
+* **Pre-commit** — automates these checks each time you commit code 
+
+Learn more: [https://pre-commit.com](https://pre-commit.com)
+
+---
 
 ## Getting Started
 
-### Step 1 – Navigate to the Project Directory
+### Step 1 — Navigate to the Data Preprocessing Directory
 
 ```bash
 cd lab1/src/lab1/data_preprocessing
 ```
 
-##  Run Code Quality Checks Manually
+Here, you’ll find your main preprocessing script — this is where you’ll practice code quality checks.
+
+---
+
+## Run Code Quality Checks Manually
+
+Let’s start by running each tool **manually** to understand what it does.
+
+---
 
 ### 1. Format Code with **Black**
 
@@ -21,7 +43,11 @@ cd lab1/src/lab1/data_preprocessing
 black preprocessing.py
 ```
 
-Observe the formatting changes in `preprocessing.py`.
+**What it does:**
+Black reformats your Python code automatically to follow PEP8 standards (consistent indentation, spacing, line length, etc.).
+It enforces a clean, uniform style — no debates about formatting!
+
+> Tip: You don’t need to worry about style decisions — Black decides for you.
 
 ---
 
@@ -31,28 +57,43 @@ Observe the formatting changes in `preprocessing.py`.
 isort preprocessing.py
 ```
 
-Review the updated imports in `preprocessing.py` and fix if needed.
+**What it does:**
+isort organizes your `import` statements automatically:
+
+* Groups standard library, third-party, and local imports.
+* Removes duplicates.
+* Keeps everything alphabetically sorted.
+
+> Tip: Keeping imports clean avoids confusion when multiple developers work on the same project.
 
 ---
 
-### 3. Lint Code with **Flake8**
+###  3. Lint Code with **Flake8**
 
 ```bash
 flake8 preprocessing.py
 ```
 
-Review linting errors or warnings and fix them accordingly.
+**What it does:**
+Flake8 analyzes your Python file and reports:
+
+* Syntax errors
+* Unused variables or imports
+* Lines that are too long
+* Poor naming conventions
+
+> Tip: Read the warnings carefully — they often reveal bugs or bad practices early.
 
 ---
 
-## Run Code Quality Checks Using **Pre-commit**
+##  Run Code Quality Checks Automatically with **Pre-commit**
 
-The `.pre-commit-config.yaml` file defines repositories and hooks for automated checks.
-To manually or automatically run these hooks, follow the steps below.
+Manual checks are useful, but MLOps encourages **automation**.
+That’s where **Pre-commit** comes in: it ensures your code is clean **before every commit**.
 
 ---
 
-### Step 1 – Move to the Project Root
+### Step 1 — Move to the Project Root
 
 ```bash
 cd mlops-lab
@@ -60,84 +101,80 @@ cd mlops-lab
 
 ---
 
-### Step 2 – Configure `.pre-commit-config.yaml`
+### Step 2 — Configure `.pre-commit-config.yaml`
 
-Ensure your `.pre-commit-config.yaml` file includes all necessary hooks (e.g., `black`, `isort`, `flake8`, `end-of-file-fixer`, etc.).
-Edit or complete it where indicated by `# your code here`.
+Check that your configuration file defines the necessary hooks. Ensure your `.pre-commit-config.yaml` file includes all necessary hooks (e.g., black, isort, flake8, end-of-file-fixer, etc.). 
+
+`Edit or complete it where indicated by ## your code here`
 
 ---
 
-###  Step 3 – Run Pre-commit Hooks Manually
+### Step 3 — Run Pre-commit Hooks Manually
+
+You can trigger all code quality checks at once:
 
 ```bash
 pre-commit run --all-files
 ```
 
-or
+or with Poetry:
 
-```bash
-pre-commit run -a
-```
 ```bash
 poetry run pre-commit run --all-files
 ```
 
-or
-
-```bash
-poetry run pre-commit run -a
-```
-
-Observe the results and fix issues if any hooks fail.
-
-Learn more about pre-commit hooks: [https://pre-commit.com](https://pre-commit.com)
+> If any hook fails, Pre-commit will show what needs fixing.
+> Simply correct the issues, re-run the command, and ensure all checks pass.
 
 ---
 
-## Automate Code Quality with Pre-commit Hooks
+## Automate Code Quality on Every Commit
 
-### Step 4 – Install the Git Hook Scripts
+### Step 4 — Install the Git Hook Scripts
 
-Run the following command to install pre-commit hooks.
-This ensures checks are executed automatically on every `git commit`.
+Install pre-commit so that it runs automatically whenever you make a Git commit:
 
 ```bash
 pre-commit install
 ```
 
+or (if using Poetry):
+
 ```bash
-poetry pre-commi install
+poetry run pre-commit install
 ```
 
+> After this step, every time you run `git commit`, Pre-commit will check your code first!
 
 ---
 
-### Step 5 – Auto-update Pre-commit Hooks
+### Step 5 — Update Pre-commit Hooks Regularly
 
-To update all hooks to their latest versions:
+To ensure you’re using the latest versions of each hook:
 
 ```bash
 pre-commit autoupdate
 ```
-or
+
+or with Poetry:
 
 ```bash
-poetry run pre-commit autodapte
+poetry run pre-commit autoupdate
 ```
 
---`
+---
 
-### Pro Tip
+### Pro Tip — Validate Everything Once
 
-When adding new hooks or updating existing ones, it’s a good practice to run them across the entire codebase:
+When you add new hooks or update existing ones, always run them on all files once to ensure consistency:
 
 ```bash
 pre-commit run --all-files
 ```
 
+or
+
 ```bash
 poetry run pre-commit run --all-files
 ```
-
-> Usually, pre-commit runs only on modified files during `git commit`. Running it manually on all files ensures consistency across the entire repository.
 
