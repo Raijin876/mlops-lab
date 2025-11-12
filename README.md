@@ -78,9 +78,10 @@ Follow instructions in `mlops-lab1-instruction` and complete the lab in order:
 **Recommended workflow**:
 ```
 environment-management-package -> code-versioning -> code-quality -> data-versioning -> automation-ci
+```
+---
+Directory structure for Lab 1
 
-
-```Directory structure for Lab 1:
 ```
 ├── conda.yaml               # Conda environment definition with packages and Python version
 ├── datastores               # Folder to store datasets (raw and processed)
@@ -123,7 +124,6 @@ environment-management-package -> code-versioning -> code-quality -> data-versio
 ├── poetry.lock              # Poetry lock file for reproducible dependencies
 ├── pyproject.toml           # Poetry project configuration
 └── README.md                # Main README for the repository
-
 ```
 ---
 
